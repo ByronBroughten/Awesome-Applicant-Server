@@ -13,11 +13,11 @@ export type Applicant = Record<ApplicantPropName, string>;
 
 type ModelAttributes = ModelAttributeColumnOptions<Model<any, any>>;
 
-export const byronProps = {
+export const byronProps: Applicant = {
   fullName: "Byron Broughten",
   skill: "Programming with React and Node.js",
   hobby: "Playing funky bass guitar",
-} as const;
+};
 
 export class ApplicantService {
   private sequelize: Sequelize;
