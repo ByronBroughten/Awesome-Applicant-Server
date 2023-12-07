@@ -20,7 +20,7 @@ export async function initSequelize() {
 
   try {
     await sequelize.authenticate();
-    console.log("Database initialized.");
+    console.log("Database connected.");
   } catch (error) {
     console.log("Database failed to connect", error);
   }

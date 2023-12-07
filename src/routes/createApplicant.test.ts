@@ -26,7 +26,7 @@ describe("/applicant/create", () => {
     expect(res.status).toBe(200);
     expect(await applicantService.last()).toEqual(body);
   });
-  it("should return status 500 and not create an applicant", async () => {
+  it("should return status 400 and not create an applicant", async () => {
     const body: Omit<Applicant, "hobby"> = {
       fullName,
       skill: "Testing",
@@ -34,7 +34,7 @@ describe("/applicant/create", () => {
 
     const res = await request(server).post("/applicant/create").send(body);
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(400);
     expect(await applicantService.has(body.fullName)).toBe(false);
   });
 });

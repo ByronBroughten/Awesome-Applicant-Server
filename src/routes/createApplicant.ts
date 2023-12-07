@@ -1,6 +1,6 @@
 import { App } from "../App";
 import { Applicant } from "../App/ApplicantService";
-import { validateString } from "../utils";
+import { validateString } from "../handleErrors";
 
 export function useCreateApplicant({ router, applicantService }: App): void {
   router.post("/applicant/create", async (req, res, next) => {

@@ -35,7 +35,7 @@ describe("/applicant/update", () => {
     const applicant = await applicantService.get(fullName);
     expect(applicant).toEqual(updatedBody);
   });
-  it("should return status 500 and not update the applicant", async () => {
+  it("should return status 400 and not update the applicant", async () => {
     const invalidBody: Omit<Applicant, "skill"> = {
       fullName,
       hobby: "updated hobby",
@@ -44,7 +44,7 @@ describe("/applicant/update", () => {
       .post("/applicant/update")
       .send(invalidBody);
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(400);
     const applicant = await applicantService.get(fullName);
     expect(applicant).toEqual(unUpdatedBody);
   });

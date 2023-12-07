@@ -73,7 +73,23 @@ export class ApplicantService {
       this.model.destroy({ where: { fullName } });
     }
   }
-  async init() {
+  async setDefault(): Promise<void> {
+    await this.deleteAll();
+    await this.create(byronProps);
+  }
+  private async deleteAll(): Promise<number> {
+    return await this.model.destroy({
+      truncate: true,
+    });
+  }
+  private async findByFullName(fullName: string): Promise<Applicant | null> {
+    const model = await this.model.findOne({
+      where: { fullName },
+      attributes: applicantPropNames,
+    });
+    return model?.dataValues as Promise<Applicant | null>;
+  }
+  private async initTable() {
     const sequelizeProps: Record<ApplicantPropName, ModelAttributes> = {
       fullName: {
         type: DataTypes.STRING,
@@ -94,26 +110,10 @@ export class ApplicantService {
     this.sequelize.define(tableName, sequelizeProps);
     await this.sequelize.sync();
   }
-  async setDefault(): Promise<void> {
-    await this.deleteAll();
-    await this.create(byronProps);
-  }
-  async deleteAll(): Promise<number> {
-    return await this.model.destroy({
-      truncate: true,
-    });
-  }
-  private async findByFullName(fullName: string): Promise<Applicant | null> {
-    const model = await this.model.findOne({
-      where: { fullName },
-      attributes: applicantPropNames,
-    });
-    return model?.dataValues as Promise<Applicant | null>;
-  }
   static async init() {
     const sequelize = await initSequelize();
     const applicantService = new ApplicantService(sequelize);
-    await applicantService.init();
+    await applicantService.initTable();
     return applicantService;
   }
 }

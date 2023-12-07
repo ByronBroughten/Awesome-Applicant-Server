@@ -30,3 +30,14 @@ export function handleErrors(
   }
   next();
 }
+
+export function validateString(value: any): string {
+  if (typeof value === "string") {
+    return value;
+  } else {
+    throw new ResStatusError({
+      message: `value ${value} is not a string`,
+      status: 400,
+    });
+  }
+}

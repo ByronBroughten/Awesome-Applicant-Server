@@ -1,6 +1,6 @@
 import { App } from "../App";
 import { Applicant } from "../App/ApplicantService";
-import { validateString } from "../utils";
+import { validateString } from "../handleErrors";
 
 export function useUpdateApplicant({ router, applicantService }: App) {
   router.post("/applicant/update", async (req, res, next) => {

@@ -1,5 +1,5 @@
 import { App } from "../App";
-import { validateString } from "../utils";
+import { validateString } from "../handleErrors";
 
 export function useDeleteApplicant({ router, applicantService }: App): void {
   router.post("/applicant/delete", async (req, res, next) => {
