@@ -1,0 +1,3 @@
+A simple server for displaying information about me and for performing crud operations using sequelize and a postgres database.
+
+A video rundown of the app can be found here: https://youtu.be/FjwND_GRJvk
