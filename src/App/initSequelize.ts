@@ -9,7 +9,6 @@ export async function initSequelize() {
   const sequelize = new Sequelize(
     `postgres://postgres:postgres@localhost/${databaseName}`,
     {
-      // database,
       host,
       port,
       username,

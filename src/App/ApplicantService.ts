@@ -7,8 +7,8 @@ import {
 } from "sequelize";
 import { initSequelize } from "./initSequelize";
 
-type ApplicantPropName = "fullName" | "skill" | "hobby";
-const applicantPropNames: ApplicantPropName[] = ["fullName", "skill", "hobby"];
+const applicantPropNames = ["fullName", "skill", "hobby"] as const;
+type ApplicantPropName = (typeof applicantPropNames)[number];
 export type Applicant = Record<ApplicantPropName, string>;
 
 type ModelAttributes = ModelAttributeColumnOptions<Model<any, any>>;
@@ -54,7 +54,7 @@ export class ApplicantService {
   async last(): Promise<Applicant> {
     const model = await this.model.findOne({
       order: [["createdAt", "DESC"]],
-      attributes: applicantPropNames,
+      attributes: [...applicantPropNames],
     });
     if (!model) {
       throw new Error("There are no applicants");
@@ -85,7 +85,7 @@ export class ApplicantService {
   private async findByFullName(fullName: string): Promise<Applicant | null> {
     const model = await this.model.findOne({
       where: { fullName },
-      attributes: applicantPropNames,
+      attributes: [...applicantPropNames],
     });
     return model?.dataValues as Promise<Applicant | null>;
   }
